@@ -1,0 +1,6 @@
+comando para inicializar sequelize
+--solo si no se descargo sequelize de namera global
+-- use este comando dentro de la carpeta src o donde este el archivo de inicializacion del servidor
+-- exaple comand console: cd src | <nombre de la carperta de inicio>
+npx sequelize init
+-- este comando creara las carpetas de: [config, models, seeders y migrations] 
