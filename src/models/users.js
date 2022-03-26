@@ -68,18 +68,18 @@ export default class users extends Model {
         tableName: 'users',
         schema: 'public',
         timestamps: false,
-        indexes: [
-          {
-            name: 'users_email_key',
-            unique: true,
-            fields: [{ name: 'email' }],
-          },
-          {
-            name: 'users_pkey',
-            unique: true,
-            fields: [{ name: 'id' }],
-          },
-        ],
+        // indexes: [
+        //   {
+        //     name: 'users_email_key',
+        //     unique: true,
+        //     fields: [{ name: 'email' }],
+        //   },
+        //   {
+        //     name: 'users_pkey',
+        //     unique: true,
+        //     fields: [{ name: 'id' }],
+        //   },
+        // ],
       },
     );
     return users;
