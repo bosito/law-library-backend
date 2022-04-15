@@ -1,7 +1,7 @@
 import _sequelize from 'sequelize';
 const { Model, Sequelize } = _sequelize;
 
-export default class users extends Model {
+export default class status extends Model {
   static init(sequelize, DataTypes) {
   return super.init({
     id: {
@@ -10,33 +10,35 @@ export default class users extends Model {
       allowNull: false,
       primaryKey: true
     },
-    firstname: {
-      type: DataTypes.STRING(40),
-      allowNull: true,
-      defaultValue: "Law"
+    type: {
+      type: DataTypes.ENUM("user_default","user_vip"),
+      allowNull: false,
+      defaultValue: "user_default"
     },
-    lastname: {
-      type: DataTypes.STRING(40),
+    user_id: {
+      type: DataTypes.INTEGER,
       allowNull: true,
-      defaultValue: "Library"
+      references: {
+        model: 'users',
+        key: 'id'
+      }
     },
-    ctivate: {
-      type: DataTypes.BOOLEAN,
+    user_vip_id: {
+      type: DataTypes.INTEGER,
       allowNull: true,
-      defaultValue: false
-    },
-    profile_image: {
-      type: DataTypes.STRING,
-      allowNull: true
+      references: {
+        model: 'use_vip',
+        key: 'id'
+      }
     }
   }, {
     sequelize,
-    tableName: 'users',
+    tableName: 'status',
     schema: 'public',
     timestamps: true,
     indexes: [
       {
-        name: "users_pkey",
+        name: "status_pkey",
         unique: true,
         fields: [
           { name: "id" },
