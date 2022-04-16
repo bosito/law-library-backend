@@ -4,7 +4,7 @@ import _use_vip from "./use_vip.js";
 import _users from "./users.js";
 import config from '../config/config.js';
 
-const { DataTypes } = _sequelize;
+const { DataTypes, Sequelize } = _sequelize;
 
 export default function initModels() {
 
@@ -15,18 +15,33 @@ export default function initModels() {
   let sequelize;
   const configObj = config[env];
 
-  console.log('config -->', configObj)
+  //console.log('config -->', configObj)
 
   if (config.use_env_variable) {
-    sequelize = new _sequelize(process.env[config.use_env_variable], config);
+    sequelize = new Sequelize(process.env[config.use_env_variable], config);
   } else {
-    sequelize = new _sequelize(
+    sequelize = new Sequelize(
       configObj.database,
       configObj.username,
       configObj.password,
-      configObj
+      {
+        host: configObj.host,
+        dialect: configObj.dialect
+      }
     );
   };
+
+  function dbConetction(){
+    try {
+      sequelize.authenticate(); 
+      console.log('la base de datos esta conectada');
+
+    } catch (error) {
+      console.log('test',error)
+    };
+  };
+
+  dbConetction();
 
   const status = _status.init(sequelize, DataTypes);
   const use_vip = _use_vip.init(sequelize, DataTypes);
