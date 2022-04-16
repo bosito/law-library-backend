@@ -3,7 +3,7 @@ comando para inicializar sequelize
 -- use este comando dentro de la carpeta src o donde este el archivo de inicializacion del servidor
 -- exaple comand console: cd src | <nombre de la carperta de inicio>
 npx sequelize init
--- delo contrario use
+-- de lo contrario use
 sequelize init
 -- este comando creara las carpetas de: [config, models, seeders y migrations] 
 -- la carpeta "config" se debe modificar para que este sea un modul de js en lugar de un json
@@ -12,7 +12,34 @@ sequelize-auto -h <host> -d <database> -u <user> -x [password] -p [port]  --dial
 -- este comando debe ser modificado de la siguente manera
 -- la vandera "-l" sirve para desir en que estructura queremos que nos genere los modelos
 -- para esta parte de los pasos se recomienda leer la doc -> https://www.npmjs.com/package/sequelize-auto
-npx sequelize-auto -h 127.0.0.1 -d lawlibrary -u postgres -x root -p 5432  --dialect postgres -o ./src/models -l esm
+npx sequelize-auto -h 127.0.0.1 -d law_library_back -u postgres -x root -p 5432  --dialect postgres -o ./src/models -l esm
+
+
+***** asi debe estar el formato del archivo init_models.js *********
+
+const { DataTypes }= _sequelize;
+
+export default function initModels() {
+
+  const env = process.env.NODE_ENV || 'development';
+
+  //console.log('env -->', env)
+
+  let sequelize;
+  const configObj = config[env];
+
+  //console.log('config -->', configObj)
+
+  if (config.use_env_variable) {
+    sequelize = new _sequelize(process.env[config.use_env_variable], config);
+  } else {
+    sequelize = new _sequelize(
+      configObj.database,
+      configObj.username,
+      configObj.password,
+      configObj
+    );
+  }
 
 
 

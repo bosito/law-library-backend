@@ -4,7 +4,7 @@ import _use_vip from "./use_vip.js";
 import _users from "./users.js";
 import config from '../config/config.js';
 
-const { DataTypes }= _sequelize;
+const { DataTypes } = _sequelize;
 
 export default function initModels() {
 
@@ -26,7 +26,7 @@ export default function initModels() {
       configObj.password,
       configObj
     );
-  }
+  };
 
   const status = _status.init(sequelize, DataTypes);
   const use_vip = _use_vip.init(sequelize, DataTypes);
